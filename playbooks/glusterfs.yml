@@ -1,4 +1,4 @@
- name: Install Docker and GlusterFS dependencies
+  name: Install Docker and GlusterFS dependencies
   hosts: swarm  # Targets the 'int_swarm' group of hosts
   become: true  # Elevates privileges
   tasks:
@@ -38,7 +38,6 @@
           - "24009"
           - "24007:24008"
         jump: ACCEPT
-
 
 - name: Configure GlusterFS on first manager
   hosts: managers[0]  # Again targets the first manager for GlusterFS configuration
