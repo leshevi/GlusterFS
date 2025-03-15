@@ -1,4 +1,17 @@
-  name: Install Docker and GlusterFS dependencies
+- name: Fill out hosts
+  hosts: swarm
+  become: true
+  tasks:
+    - name: Add alle hosts and ip to /etc/hosts
+      ansible.builtin.lineinfile:
+        dest: /etc/hosts
+        regexp: '{{ hostvars[item].ansible_default_ipv4.address }}.*{{ item }}$'
+        line: "{{ hostvars[item].ansible_default_ipv4.address }} {{ hostvars[item].ansible_hostname }}"
+        state: present
+      become: true
+      with_items: "{{ groups.swarm }}"
+
+- name: Install Docker and GlusterFS dependencies
   hosts: swarm  # Targets the 'int_swarm' group of hosts
   become: true  # Elevates privileges
   tasks:
