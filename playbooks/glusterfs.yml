@@ -42,16 +42,6 @@
         owner: root
         group: root
 
-    - name: Allow connections on multiple ports
-      ansible.builtin.iptables:
-        chain: INPUT
-        protocol: tcp
-        destination_ports:
-          - "22"
-          - "24009"
-          - "24007:24008"
-        jump: ACCEPT
-
 - name: Configure GlusterFS on first manager
   hosts: managers[0]  # Again targets the first manager for GlusterFS configuration
   become: true
